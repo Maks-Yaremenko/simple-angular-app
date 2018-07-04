@@ -14,6 +14,15 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@eagle6/assets/*": ["../assets/*"],
+      "@eagle6/configs/*": ["app/configs/*"],
+      "@eagle6/core/*": ["app/core/*"],
+      "@eagle6/models/*": ["app/models/*"],
+      "@eagle6/modules/*": ["app/modules/*"],
+      "@eagle6/services/*": ["app/services/*"]
+    }
   }
 }

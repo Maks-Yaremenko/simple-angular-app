@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Components
+// Other
 import { AppComponent } from './app.component';
+import { fakeBackendProvider } from './interceptors/fake-backend.interceptor';
 
 @NgModule({
   declarations: [
@@ -15,9 +17,11 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  // TODO: Remove fakeBackendProvider when real back-end will be implemented
+  providers: [fakeBackendProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

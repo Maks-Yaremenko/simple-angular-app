@@ -1,0 +1,73 @@
+@import "../../../../assets/styles/var";
+
+.mat-dialog-title {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  .title {
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    color: gray;
+    line-height: 60px;
+    height: 80px;
+  }
+  .close-action {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: $primary-white;
+    color: gray;
+    box-shadow: none;
+    .material-icons {
+      font-size: 40px;
+    }
+  }
+}
+
+.mat-dialog-content {
+  .add-entities-title {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+
+  .entities-form-wrapper {
+    height: 510px;
+    max-width: 65%;
+    margin: auto;
+
+    .mat-form-field {
+      padding: 10px 80px 0;
+      width: 100%;
+      height: 75px;
+      border: 1px solid $primary-lightgray;
+    }
+    .entities-list-wrapper {
+      max-height: 433px;
+      overflow: auto;
+      &.entities-exist {
+        border: 1px solid lightgray;
+        border-top: 0;
+      }
+      app-entity-element {
+        display: block;
+        border-bottom: 1px solid $primary-lightgray;
+      }
+    }
+  }
+}
+
+.mat-dialog-actions {
+  justify-content: center;
+  margin-top: 80px;
+  .connect-action {
+    background: $primary-green;
+    color: $primary-white;
+    width: 220px;
+    height: 60px;
+  }
+}

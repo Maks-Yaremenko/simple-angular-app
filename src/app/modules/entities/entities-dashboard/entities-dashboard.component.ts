@@ -1,15 +1,79 @@
 import { Component, OnInit } from '@angular/core';
 
+// Models
+import { IEntity } from '@eagle6/models/entity';
+
+// Services
+import { DialogService } from '@eagle6/services/dialog/dialog.service';
+import { EntitiesService } from '@eagle6/services/entities/entities.service';
+
+// Other
+import { filter } from 'rxjs/operators';
+import { AutoUnsubscribeBase } from '@eagle6/core/auto-unsubscribe-base';
+import { EntitiesDialogComponent } from '../entities-dialog/entities-dialog.component';
+import { EntitiesHelper } from '@eagle6/core/entities-helper';
+
 @Component({
   selector: 'app-entities-dashboard',
   templateUrl: './entities-dashboard.component.html',
-  styleUrls: ['./entities-dashboard.component.css']
+  styleUrls: ['./entities-dashboard.component.scss'],
+  providers: [DialogService, EntitiesService]
 })
-export class EntitiesDashboardComponent implements OnInit {
+export class EntitiesDashboardComponent extends AutoUnsubscribeBase implements OnInit {
 
-  constructor() { }
+  entitiesConnected = 0;
+  entities: IEntity[] = [];
 
-  ngOnInit() {
+  constructor(
+    private dialog: DialogService,
+    private entitiesService: EntitiesService
+  ) {
+    super();
   }
 
+  ngOnInit() {
+    this.getEntitiesList();
+  }
+
+  showDialog(event) {
+    event.stopPropagation();
+    this.subs = this.dialog.custom(EntitiesDialogComponent, {}, {
+      panelClass: 'app-connect-entity-dialog'
+    })
+    .pipe(
+      filter(Boolean)
+    )
+    .subscribe((res: IEntity[]) => {
+      this.updateEntityList(this.entities, res);
+      this.getConnectedEntitiesCount(this.entities);
+    });
+  }
+
+  getConnectedEntitiesCount(entities: IEntity[]): void {
+    let count = 0;
+    entities.map((entity: IEntity) => {
+      count += entity.connected === true ? 1 : 0;
+    });
+    this.entitiesConnected = count;
+  }
+
+  disconnectHandler(req: number): void {
+    this.entitiesService.disconnectEntitity(req).subscribe((res: IEntity) => {
+      EntitiesHelper.entityFindAndSetFlagConnected(this.entities, res.id, false);
+      this.getConnectedEntitiesCount(this.entities);
+    });
+  }
+
+  private getEntitiesList(): void {
+    this.entitiesService.getEntitiesList().subscribe((entities: IEntity[]) => {
+      this.getConnectedEntitiesCount(entities);
+      this.entities = entities;
+    });
+  }
+
+  private updateEntityList(entitiesList: IEntity[], data: IEntity[]): void {
+    data.map(entity => {
+      EntitiesHelper.entityFindAndSetFlagConnected(entitiesList, entity.id, true);
+    });
+  }
 }

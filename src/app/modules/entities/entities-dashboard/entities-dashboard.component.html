@@ -1,3 +1,27 @@
-<p>
-  entities-dashboard works!
-</p>
+<div class="content-wrapper">
+  <mat-expansion-panel class="entities-list-panel">
+
+    <mat-expansion-panel-header class="mat-expansion-panel-header">
+      <mat-panel-title class="title-block">
+        <button
+            class="title-block-action app-small-round-button"
+            mat-mini-fab
+            (click)="showDialog($event)">
+           <i class="material-icons">add</i>
+        </button>
+        <span class="title-block-text">
+          Entities connected ({{ entitiesConnected }})
+        </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngFor="let entity of entities">
+      <app-entity-element
+          [entity]="entity"
+          *ngIf="entity.connected"
+          (disconnectEvent)="disconnectHandler($event)"
+      ></app-entity-element>
+    </ng-container>
+
+  </mat-expansion-panel>
+</div>

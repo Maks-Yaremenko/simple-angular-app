@@ -1,0 +1,36 @@
+@import "../../../../assets/styles/var";
+
+:host {
+  display: flex;
+  height: 100%;
+  background: $bg-primary;
+}
+
+.content-wrapper {
+  width: 400px;
+  margin: auto;
+  background: $primary-white;
+
+  .entities-list-panel {
+    min-height: 70px;
+    .mat-expansion-panel-header {
+      min-height: 70px;
+      padding-right: 38px;
+      .title-block {
+        height: 70px;
+        align-items: center;
+        .title-block-text {
+          font-weight: 600;
+        }
+        .title-block-action {
+          margin-right: 10px;
+          background: $primary-lightgray;
+          box-shadow: none;
+          color: black;
+          height: 30px;
+          width: 30px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<div class="entity">
+  <mat-checkbox
+      class="checkbox-action"
+      color="primary"
+      *ngIf="visibleAction === 'checkbox'"
+      (change)="checkBoxHanlder(entity.id)">
+  </mat-checkbox>
+  <div class="entity-details">
+    <span class="entity--name">{{ entity.name }}</span>
+    <span class="entity--type">{{ entity.type }}</span>
+  </div>
+  <i
+      *ngIf="visibleAction === 'remove'"
+      (click)="disconnectHandler(entity.id)"
+      class="material-icons remove-action">
+    delete
+  </i>
+</div>

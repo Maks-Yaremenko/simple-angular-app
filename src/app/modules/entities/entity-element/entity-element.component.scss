@@ -1,0 +1,35 @@
+@import "../../../../assets/styles/var";
+
+.entity {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px 0 48px;
+
+  .entity-details {
+    width: 100%;
+  }
+  .entity--name {
+    font-weight: 600;
+  }
+  .entity--name, .entity--type {
+    display: block;
+    cursor: default;
+  }
+  .remove-action {
+    height: 25px;
+    cursor: pointer;
+    color: transparent;
+  }
+  .checkbox-action {
+    margin-right: 10px;
+  }
+  &:hover {
+    background: $primary-lightgray;
+    .remove-action  {
+      color: coral;
+      opacity: .8;
+    }
+  }
+}
