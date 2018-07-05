@@ -15,8 +15,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
   entities: IEntity[] = [];
 
-  constructor() { }
-
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // get entities

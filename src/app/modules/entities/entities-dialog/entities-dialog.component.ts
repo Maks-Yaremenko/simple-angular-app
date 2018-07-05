@@ -39,21 +39,21 @@ export class EntitiesDialogComponent extends AutoUnsubscribeBase implements OnIn
     }
   }
 
-  searchSubscriber(): void {
-    this.subs = this.autocomplete.valueChanges.pipe(
-      switchMap(data => this.entitiesService.searchEntities(data))
-    )
-    .subscribe((data: IEntity[]) => {
-      this.entities = data;
-      this.selectedIds = [];
-    });
-  }
-
   closeDialog(): void {
     this.dialogRef.close(null);
   }
 
   connectEntities(): void {
-    this.entitiesService.connectEntities(this.selectedIds).subscribe(res => this.dialogRef.close(res));
+    this.dialogRef.close(this.selectedIds);
+  }
+
+  private searchSubscriber(): void {
+    this.subs = this.autocomplete.valueChanges.pipe(
+      switchMap(data => this.entitiesService.searchEntities(data))
+    )
+      .subscribe((data: IEntity[]) => {
+        this.entities = data;
+        this.selectedIds = [];
+      });
   }
 }
